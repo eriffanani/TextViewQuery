@@ -2,7 +2,8 @@
 <resources>
 
     <declare-styleable name="TextViewSearchable">
-        <attr name="android:searchResultHighlightColor"/>
+        <attr name="highlightColor" format="color|reference"/>
+        <attr name="highlightUnderline" format="boolean"/>
         <attr name="highlightTextStyle">
             <flag name="normal" value="0" />
             <flag name="bold" value="1" />

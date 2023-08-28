@@ -12,6 +12,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -29,8 +30,11 @@ public class TextViewSearchable extends AppCompatTextView {
     private static final int HIGHLIGHT_NORMAL = 0;
     private static final int HIGHLIGHT_BOLD = 1;
     private static final int HIGHLIGHT_ITALIC = 2;
+    private static final int HIGHLIGHT_BOLD_ITALIC = 3;
 
     private int highlightTextStyle = HIGHLIGHT_NORMAL;
+
+    private boolean highlightUnderline  = false;
 
     public TextViewSearchable(@NonNull Context context) {
         super(context);
@@ -54,7 +58,9 @@ public class TextViewSearchable extends AppCompatTextView {
                     attrs, R.styleable.TextViewSearchable, defStyleAttr, 0
             );
             try {
-                highlightColor = typedArray.getColor(R.styleable.TextViewSearchable_android_searchResultHighlightColor, Color.BLACK);
+                highlightColor = typedArray.getColor(R.styleable.TextViewSearchable_highlightColor, getCurrentTextColor());
+                highlightTextStyle = typedArray.getInt(R.styleable.TextViewSearchable_highlightTextStyle, 0);
+                highlightUnderline = typedArray.getBoolean(R.styleable.TextViewSearchable_highlightUnderline, false);
             } finally {
                 typedArray.recycle();
             }
@@ -63,6 +69,7 @@ public class TextViewSearchable extends AppCompatTextView {
 
     public void setQuery(@Nullable String query) {
         this.query = query;
+        applySpan();
     }
 
     private void applySpan() {
@@ -76,20 +83,41 @@ public class TextViewSearchable extends AppCompatTextView {
             int endIndex = startIndex + length;
 
             if (startIndex > -1) {
-                SpannableStringBuilder ssBuilder = new SpannableStringBuilder(mText);
-                ForegroundColorSpan color = new ForegroundColorSpan(getCurrentTextColor());
-                StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+                SpannableStringBuilder spanBuilder = new SpannableStringBuilder(mText);
+                ForegroundColorSpan color = new ForegroundColorSpan(highlightColor);
 
-                // Apply the bold text style span
-                ssBuilder.setSpan(
-                        boldSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                );
+                // Bold Span
+                if (highlightTextStyle == HIGHLIGHT_BOLD_ITALIC) {
+                    StyleSpan boldItalic = new StyleSpan(Typeface.BOLD_ITALIC);
+                    spanBuilder.setSpan(
+                            boldItalic, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                } else if (highlightTextStyle == HIGHLIGHT_BOLD) {
+                    StyleSpan boldSpan = new StyleSpan(Typeface.BOLD);
+                    spanBuilder.setSpan(
+                            boldSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                } else if (highlightTextStyle == HIGHLIGHT_ITALIC) {
+                    StyleSpan italicSpan = new StyleSpan(Typeface.ITALIC);
+                    spanBuilder.setSpan(
+                            italicSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                }
 
-                // Apply the color text style span
-                ssBuilder.setSpan(
+                // Underline Span
+                if (highlightUnderline) {
+                    UnderlineSpan underline = new UnderlineSpan();
+                    spanBuilder.setSpan(
+                            underline, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                }
+
+                // Color Span
+                spanBuilder.setSpan(
                         color, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 );
-                setText(ssBuilder);
+
+                setText(spanBuilder);
             }
         }
     }
