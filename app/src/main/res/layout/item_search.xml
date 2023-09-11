@@ -10,7 +10,7 @@
     android:paddingEnd="10dp"
     android:background="?attr/selectableItemBackground">
 
-    <com.erif.library.TextViewSearchable
+    <com.erif.library.TextViewQuery
         android:id="@+id/item_search_txtSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

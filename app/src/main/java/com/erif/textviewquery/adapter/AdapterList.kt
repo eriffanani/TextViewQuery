@@ -1,4 +1,4 @@
-package com.erif.textviewsearchable.adapter
+package com.erif.textviewquery.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.erif.library.TextViewSearchable
-import com.erif.textviewsearchable.R
+import com.erif.library.TextViewQuery
+import com.erif.textviewquery.R
 
 class AdapterList: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -31,7 +31,7 @@ class AdapterList: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val parent: RelativeLayout = itemView.findViewById(R.id.item_parent)
-        private val txtSearch: TextViewSearchable = itemView.findViewById(R.id.item_search_txtSearch)
+        private val txtSearch: TextViewQuery = itemView.findViewById(R.id.item_search_txtSearch)
 
         fun bind(item: ModelItemSearch) {
             txtSearch.text = item.value

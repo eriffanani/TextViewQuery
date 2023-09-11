@@ -1,4 +1,4 @@
-package com.erif.textviewsearchable
+package com.erif.textviewquery
 
 import org.junit.Test
 

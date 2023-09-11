@@ -1,4 +1,4 @@
-package com.erif.textviewsearchable
+package com.erif.textviewquery
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,5 +1,6 @@
-package com.erif.textviewsearchable
+package com.erif.textviewquery
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -17,11 +19,11 @@ import androidx.core.view.isVisible
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.erif.textviewsearchable.adapter.AdapterList
-import com.erif.textviewsearchable.adapter.CountryRepo
-import com.erif.textviewsearchable.adapter.ModelItemSearch
-import com.erif.textviewsearchable.adapter.main.AdapterMain
-import com.erif.textviewsearchable.adapter.main.ModelItemMain
+import com.erif.textviewquery.adapter.AdapterList
+import com.erif.textviewquery.adapter.CountryRepo
+import com.erif.textviewquery.adapter.ModelItemSearch
+import com.erif.textviewquery.adapter.main.AdapterMain
+import com.erif.textviewquery.adapter.main.ModelItemMain
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.isVisible = false
 
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val edSearch: EditText = findViewById(R.id.act_main_edSearch)
         edSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -91,8 +94,13 @@ class MainActivity : AppCompatActivity() {
         btnClear.setOnClickListener {
             val notEmptyQuery = !TextUtils.isEmpty(edSearch.text.toString())
             delayClick {
-                if (notEmptyQuery)
+                if (notEmptyQuery) {
                     edSearch.setText("")
+                    edSearch.clearFocus()
+                    delayClick(200L) {
+                        imm.hideSoftInputFromWindow(edSearch.windowToken, 0)
+                    }
+                }
             }
         }
         setupMainRecyclerView()
@@ -122,24 +130,38 @@ class MainActivity : AppCompatActivity() {
         adapterMain.setList(listMain)
     }
 
-    private fun delayClick(execute: () -> Unit) {
+    private fun delayClick(duration: Long = 350L, execute: () -> Unit) {
         val handler = Handler(Looper.getMainLooper())
         val runnable = Runnable {
             execute()
         }
-        handler.postDelayed(runnable, 300L)
+        handler.postDelayed(runnable, duration)
     }
 
     private fun getSelectedList(query: String?): MutableList<String>  {
         val newList: MutableList<String> = ArrayList()
         val max = 8
-        if (!TextUtils.isEmpty(query) && query != null) {
-            val results: List<String> = countries.filter { it.contains(query, ignoreCase = true) }
+        val mQuery = query ?: ""
+        val emptyQuery = TextUtils.isEmpty(query)
+        val blankQuery = mQuery.isBlank()
+        if (!emptyQuery && !blankQuery) {
+            val firstCharQuery = mQuery[0]
+            val results: List<String> = countries.filter {
+                it.startsWith(mQuery, true) or it.contains(mQuery, true)
+            }
+            val finalResults: MutableList<String> = results.toMutableList()
+            results.forEachIndexed { idx, result ->
+                val resultFirstChar = result[0]
+                if (resultFirstChar.equals(firstCharQuery, true)) {
+                    finalResults.removeAt(idx)
+                    finalResults.add(0, result)
+                }
+            }
             newList.addAll(
-                if(results.size > max)
-                    results.slice(0 ..< max)
+                if(finalResults.size > max)
+                    finalResults.slice(0 ..< max)
                 else
-                    results
+                    finalResults
             )
         }
         return newList

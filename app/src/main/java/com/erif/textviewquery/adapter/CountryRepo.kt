@@ -1,4 +1,4 @@
-package com.erif.textviewsearchable.adapter
+package com.erif.textviewquery.adapter
 
 class CountryRepo {
 

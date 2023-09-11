@@ -1,4 +1,4 @@
-package com.erif.textviewsearchable.adapter.main
+package com.erif.textviewquery.adapter.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.erif.textviewsearchable.R
+import com.erif.textviewquery.R
 import com.google.android.material.imageview.ShapeableImageView
 
 class AdapterMain: RecyclerView.Adapter<RecyclerView.ViewHolder>() {

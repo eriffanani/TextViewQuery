@@ -1,11 +1,8 @@
 package com.erif.library;
 
-import static java.lang.Math.max;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -18,11 +15,10 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 
 import java.util.Locale;
 
-public class TextViewSearchable extends AppCompatTextView {
+public class TextViewQuery extends AppCompatTextView {
 
     private String query = null;
     private int highlightColor;
@@ -36,17 +32,17 @@ public class TextViewSearchable extends AppCompatTextView {
 
     private boolean highlightUnderline  = false;
 
-    public TextViewSearchable(@NonNull Context context) {
+    public TextViewQuery(@NonNull Context context) {
         super(context);
         init(context, null, 0);
     }
 
-    public TextViewSearchable(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public TextViewQuery(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0);
     }
 
-    public TextViewSearchable(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TextViewQuery(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
@@ -55,12 +51,12 @@ public class TextViewSearchable extends AppCompatTextView {
         Resources.Theme theme = context.getTheme();
         if (theme != null) {
             TypedArray typedArray = theme.obtainStyledAttributes(
-                    attrs, R.styleable.TextViewSearchable, defStyleAttr, 0
+                    attrs, R.styleable.TextViewQuery, defStyleAttr, 0
             );
             try {
-                highlightColor = typedArray.getColor(R.styleable.TextViewSearchable_highlightColor, getCurrentTextColor());
-                highlightTextStyle = typedArray.getInt(R.styleable.TextViewSearchable_highlightTextStyle, 0);
-                highlightUnderline = typedArray.getBoolean(R.styleable.TextViewSearchable_highlightUnderline, false);
+                highlightColor = typedArray.getColor(R.styleable.TextViewQuery_highlightColor, getCurrentTextColor());
+                highlightTextStyle = typedArray.getInt(R.styleable.TextViewQuery_highlightTextStyle, 0);
+                highlightUnderline = typedArray.getBoolean(R.styleable.TextViewQuery_highlightUnderline, false);
             } finally {
                 typedArray.recycle();
             }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="TextViewSearchable">
+    <declare-styleable name="TextViewQuery">
         <attr name="highlightColor" format="color|reference"/>
         <attr name="highlightUnderline" format="boolean"/>
         <attr name="highlightTextStyle">

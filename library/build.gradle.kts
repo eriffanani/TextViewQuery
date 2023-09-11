@@ -8,7 +8,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 groupId = "com.github.eriffanani"
-                artifactId = "TextViewSearchable"
+                artifactId = "TextViewQuery"
                 version = "1.0.0"
                 afterEvaluate {
                     artifact(tasks.getByName("bundleReleaseAar"))

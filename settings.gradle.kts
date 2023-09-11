@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TextViewSearchable"
+rootProject.name = "TextViewQuery"
 include(":app")
 include(":library")

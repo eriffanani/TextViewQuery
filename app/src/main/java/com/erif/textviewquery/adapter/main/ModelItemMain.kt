@@ -1,4 +1,4 @@
-package com.erif.textviewsearchable.adapter.main
+package com.erif.textviewquery.adapter.main
 
 data class ModelItemMain (
     val id: Int,
