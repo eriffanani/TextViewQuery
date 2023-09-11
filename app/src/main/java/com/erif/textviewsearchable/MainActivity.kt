@@ -3,13 +3,15 @@ package com.erif.textviewsearchable
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.ViewUtils
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.core.widget.ImageViewCompat
@@ -30,8 +32,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val icSearch: ImageView = findViewById(R.id.act_main_icSearch)
-        val icClear: ImageView = findViewById(R.id.act_main_icClear)
-        icClear.isVisible = false
+        val btnClear: RelativeLayout = findViewById(R.id.act_main_btnClear)
+        btnClear.isVisible = false
+        //val icClear: ImageView = findViewById(R.id.act_main_icClear)
 
         val cardView: CardView = findViewById(R.id.act_main_cardView)
         val recyclerView: RecyclerView = findViewById(R.id.act_main_recyclerView)
@@ -48,18 +51,23 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val query = s.toString()
-                val results = getSelectedList(query)
-                resultSearch.clear()
-                results.forEachIndexed { idx, value ->
-                    resultSearch.add(
-                        ModelItemSearch(idx, query, value)
-                    )
+                val emptyQuery = TextUtils.isEmpty(query)
+                val blankQuery = query.isBlank()
+                if (!emptyQuery && !blankQuery) {
+                    val results = getSelectedList(query)
+                    resultSearch.clear()
+                    results.forEachIndexed { idx, value ->
+                        resultSearch.add(
+                            ModelItemSearch(idx, query, value)
+                        )
+                    }
+                } else if (emptyQuery) {
+                    resultSearch.clear()
                 }
-                val emptyText = !TextUtils.isEmpty(query)
-                icClear.isVisible = emptyText
+                btnClear.isVisible = !emptyQuery
                 val emptyColor = Color.parseColor("#B4B4B4")
                 val fillColor = Color.parseColor("#595959")
-                val searchIconColor = if (emptyText) fillColor else emptyColor
+                val searchIconColor = if (emptyQuery) fillColor else emptyColor
                 ImageViewCompat.setImageTintList(icSearch, ColorStateList.valueOf(searchIconColor))
             }
 
@@ -78,6 +86,21 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+        btnClear.setOnClickListener {
+            val notEmptyQuery = !TextUtils.isEmpty(edSearch.text.toString())
+            delayClick {
+                if (notEmptyQuery)
+                    edSearch.setText("")
+            }
+        }
+    }
+
+    private fun delayClick(execute: () -> Unit) {
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = Runnable {
+            execute()
+        }
+        handler.postDelayed(runnable, 300L)
     }
 
     private fun getSelectedList(query: String?): MutableList<String>  {

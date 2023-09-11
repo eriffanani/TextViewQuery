@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="25dp"
+        app:cardCornerRadius="28dp"
         app:cardElevation="0dp">
 
         <LinearLayout
@@ -49,19 +49,25 @@
                     android:textSize="16sp"
                     android:imeOptions="actionSearch"
                     android:layout_toEndOf="@id/act_main_icSearch"
-                    android:layout_toStartOf="@id/act_main_icClear"
+                    android:layout_toStartOf="@id/act_main_btnClear"
                     android:importantForAutofill="no" />
 
-                <ImageView
-                    android:id="@+id/act_main_icClear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_cancel"
-                    app:tint="#696969"
-                    android:layout_marginEnd="10dp"
+                <RelativeLayout
+                    android:id="@+id/act_main_btnClear"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    tools:ignore="ContentDescription" />
+                    android:background="@drawable/ripple_circle">
+                    <ImageView
+                        android:id="@+id/act_main_icClear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cancel"
+                        app:tint="#696969"
+                        android:layout_centerInParent="true"
+                        tools:ignore="ContentDescription" />
+                </RelativeLayout>
 
             </RelativeLayout>
 
