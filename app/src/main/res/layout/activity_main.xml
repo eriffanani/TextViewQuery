@@ -1,97 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.erif.textviewquery.MainActivity"
-    android:background="#F5F5F5">
+    tools:context="com.erif.textviewquery.ui.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/act_main_recyclerView"
+    <data>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="90dp"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_main_recycler"
-        android:clipToPadding="false"/>
+        android:background="#F5F5F5">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/act_main_cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="0dp"
-        android:layout_marginTop="10dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/act_main_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="90dp"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_main_recycler"
+            android:clipToPadding="false"/>
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/act_main_cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true">
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            android:layout_marginTop="10dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp">
-
-                <ImageView
-                    android:id="@+id/act_main_icSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_search"
-                    app:tint="#B4B4B4"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    tools:ignore="ContentDescription" />
-
-                <EditText
-                    android:id="@+id/act_main_edSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Search country here..."
-                    android:background="@null"
-                    android:paddingStart="7dp"
-                    android:paddingEnd="10dp"
-                    android:inputType="textCapWords"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:imeOptions="actionSearch"
-                    android:layout_toEndOf="@id/act_main_icSearch"
-                    android:layout_toStartOf="@id/act_main_btnClear"
-                    android:importantForAutofill="no" />
-
-                <RelativeLayout
-                    android:id="@+id/act_main_btnClear"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/ripple_circle">
-                    <ImageView
-                        android:id="@+id/act_main_icClear"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_cancel"
-                        app:tint="#696969"
-                        android:layout_centerInParent="true"
-                        tools:ignore="ContentDescription" />
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/act_main_recyclerViewQuery"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:itemCount="5"
-                android:clipToPadding="false"
-                android:paddingBottom="5dp"
-                tools:listitem="@layout/item_search"/>
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
 
-        </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
 
-    </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/act_main_icSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_search"
+                        app:tint="#B4B4B4"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        tools:ignore="ContentDescription" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    <EditText
+                        android:id="@+id/act_main_edSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Search country here..."
+                        android:background="@null"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="10dp"
+                        android:inputType="textCapWords"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:imeOptions="actionSearch"
+                        android:layout_toEndOf="@id/act_main_icSearch"
+                        android:layout_toStartOf="@id/act_main_btnClear"
+                        android:importantForAutofill="no" />
+
+                    <RelativeLayout
+                        android:id="@+id/act_main_btnClear"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ripple_circle">
+                        <ImageView
+                            android:id="@+id/act_main_icClear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_cancel"
+                            app:tint="#696969"
+                            android:layout_centerInParent="true"
+                            tools:ignore="ContentDescription" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/act_main_recyclerViewQuery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="5"
+                    android:clipToPadding="false"
+                    android:paddingBottom="5dp"
+                    tools:listitem="@layout/item_search"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
