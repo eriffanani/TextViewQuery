@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erif.textviewsearchable.adapter.AdapterList
 import com.erif.textviewsearchable.adapter.CountryRepo
 import com.erif.textviewsearchable.adapter.ModelItemSearch
+import com.erif.textviewsearchable.adapter.main.AdapterMain
+import com.erif.textviewsearchable.adapter.main.ModelItemMain
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         //val icClear: ImageView = findViewById(R.id.act_main_icClear)
 
         val cardView: CardView = findViewById(R.id.act_main_cardView)
-        val recyclerView: RecyclerView = findViewById(R.id.act_main_recyclerView)
+        val recyclerView: RecyclerView = findViewById(R.id.act_main_recyclerViewQuery)
         val manager = LinearLayoutManager(this)
         recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
@@ -93,6 +95,31 @@ class MainActivity : AppCompatActivity() {
                     edSearch.setText("")
             }
         }
+        setupMainRecyclerView()
+    }
+
+    private fun setupMainRecyclerView() {
+        val recyclerView: RecyclerView = findViewById(R.id.act_main_recyclerView)
+        val adapterMain = AdapterMain()
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = adapterMain
+        }
+        val arrImage = arrayOf(
+            R.mipmap.man1, R.mipmap.man2, R.mipmap.man3,
+            R.mipmap.women1, R.mipmap.women2, R.mipmap.women3,
+            R.mipmap.man1, R.mipmap.man2, R.mipmap.man3,
+            R.mipmap.women1, R.mipmap.women2, R.mipmap.women3,
+            R.mipmap.man1, R.mipmap.man2, R.mipmap.man3,
+            R.mipmap.women1, R.mipmap.women2, R.mipmap.women3
+        )
+        val listMain: MutableList<ModelItemMain> = ArrayList()
+        arrImage.forEachIndexed { idx, item ->
+            listMain.add(
+                ModelItemMain(idx, item, "This is Name $idx", "Subtitle from name $idx")
+            )
+        }
+        adapterMain.setList(listMain)
     }
 
     private fun delayClick(execute: () -> Unit) {

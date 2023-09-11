@@ -8,13 +8,23 @@
     tools:context=".MainActivity"
     android:background="#F5F5F5">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/act_main_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="90dp"
+        tools:itemCount="10"
+        tools:listitem="@layout/item_main_recycler"
+        android:clipToPadding="false"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/act_main_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="28dp"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +82,7 @@
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/act_main_recyclerView"
+                android:id="@+id/act_main_recyclerViewQuery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:itemCount="5"
