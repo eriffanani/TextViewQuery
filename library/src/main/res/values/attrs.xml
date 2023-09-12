@@ -3,12 +3,16 @@
 
     <declare-styleable name="TextViewQuery">
         <attr name="highlightColor" format="color|reference"/>
+        <attr name="highlightBackgroundColor" format="color|reference"/>
         <attr name="highlightUnderline" format="boolean"/>
+        <attr name="android:text"/>
         <attr name="highlightTextStyle">
             <flag name="normal" value="0" />
             <flag name="bold" value="1" />
             <flag name="italic" value="2" />
         </attr>
+        <attr name="query" format="string"/>
+        <attr name="ignoreCase" format="boolean"/>
     </declare-styleable>
 
 </resources>

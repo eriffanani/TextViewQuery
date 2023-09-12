@@ -14,6 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:liftOnScroll="true">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/act_another_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="@drawable/ic_back"
+                app:menu="@menu/menu_search"
+                app:title="Another Example"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/act_another_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_main_recycler"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

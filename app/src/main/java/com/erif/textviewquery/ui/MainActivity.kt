@@ -1,6 +1,7 @@
 package com.erif.textviewquery.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -15,21 +16,23 @@ import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erif.textviewquery.R
-import com.erif.textviewquery.adapter.AdapterList
-import com.erif.textviewquery.adapter.CountryRepo
-import com.erif.textviewquery.adapter.ModelItemSearch
-import com.erif.textviewquery.adapter.main.AdapterMain
+import com.erif.textviewquery.ui.adapter.serach.AdapterSearch
+import com.erif.textviewquery.ui.adapter.serach.CountryRepo
+import com.erif.textviewquery.model.ModelItemSearch
+import com.erif.textviewquery.ui.adapter.main.AdapterMain
 import com.erif.textviewquery.databinding.ActivityMainBinding
-import com.erif.textviewquery.ui.viewmodel.ActMainViewModel
+import com.erif.textviewquery.model.ModelItemMain
+import com.erif.textviewquery.ui.viewmodel.MainViewModel
+import com.erif.textviewquery.usecases.MainListItemListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainListItemListener {
 
-    private val adapterMain = AdapterMain()
-    private val adapterQuery = AdapterList()
+    private val adapterMain = AdapterMain(this)
+    private val adapterQuery = AdapterSearch()
     private val countries = CountryRepo.countries()
     private var resultSearch: MutableList<ModelItemSearch> = ArrayList()
     private lateinit var recyclerView: RecyclerView
-    private val viewModel: ActMainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +109,11 @@ class MainActivity : AppCompatActivity() {
                 adapterQuery.setList(resultSearch)
             }
         })
+    }
+
+    override fun onClickItem(item: ModelItemMain) {
+        val intent = Intent(this, AnotherExample::class.java)
+        startActivity(intent)
     }
 
 }

@@ -6,7 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -22,15 +22,20 @@ public class TextViewQuery extends AppCompatTextView {
 
     private String query = null;
     private int highlightColor;
+    private int highlightBackgroundColor;
 
     private static final int HIGHLIGHT_NORMAL = 0;
     private static final int HIGHLIGHT_BOLD = 1;
     private static final int HIGHLIGHT_ITALIC = 2;
     private static final int HIGHLIGHT_BOLD_ITALIC = 3;
 
-    private int highlightTextStyle = HIGHLIGHT_NORMAL;
+    private int highlightTextStyle = HIGHLIGHT_BOLD;
 
     private boolean highlightUnderline  = false;
+
+    private boolean ignoreCase = true;
+
+    private CharSequence text = null;
 
     public TextViewQuery(@NonNull Context context) {
         super(context);
@@ -55,8 +60,16 @@ public class TextViewQuery extends AppCompatTextView {
             );
             try {
                 highlightColor = typedArray.getColor(R.styleable.TextViewQuery_highlightColor, getCurrentTextColor());
-                highlightTextStyle = typedArray.getInt(R.styleable.TextViewQuery_highlightTextStyle, 0);
+                highlightBackgroundColor = typedArray.getColor(R.styleable.TextViewQuery_highlightBackgroundColor, 0);
+                highlightTextStyle = typedArray.getInt(R.styleable.TextViewQuery_highlightTextStyle, HIGHLIGHT_BOLD);
                 highlightUnderline = typedArray.getBoolean(R.styleable.TextViewQuery_highlightUnderline, false);
+                ignoreCase = typedArray.getBoolean(R.styleable.TextViewQuery_ignoreCase, true);
+                text = typedArray.getString(R.styleable.TextViewQuery_android_text);
+                query = typedArray.getString(R.styleable.TextViewQuery_query);
+                if (notEmpty(currentText()) && notEmpty(query)) {
+                    SpannableStringBuilder spanBuilder = createSpan();
+                    setText(spanBuilder);
+                }
             } finally {
                 typedArray.recycle();
             }
@@ -65,22 +78,40 @@ public class TextViewQuery extends AppCompatTextView {
 
     public void setQuery(@Nullable String query) {
         this.query = query;
-        applySpan();
+        if (notEmpty(currentText())) {
+            SpannableStringBuilder spanBuilder = createSpan();
+            if (spanBuilder != null)
+                setText(spanBuilder, BufferType.NORMAL);
+            else
+                setText(text);
+        }
+        // When Use View Model, Query Running First
+        // When Manual, Query Running Last
     }
 
-    private void applySpan() {
-        String mText = getText().toString();
-        if (query != null && !TextUtils.isEmpty(mText)) {
-            String lowerCaseQuery = query.toLowerCase(Locale.getDefault());
-            String lowerCaseValue = mText.toLowerCase(Locale.getDefault());
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        this.text = text;
+        if (notEmpty(query)) {
+            SpannableStringBuilder spanBuilder = createSpan();
+            super.setText(spanBuilder, BufferType.SPANNABLE);
+        } else  {
+            super.setText(text, type);
+        }
+    }
 
-            int length = lowerCaseQuery.length();
-            int startIndex = lowerCaseValue.indexOf(lowerCaseQuery);
+    private SpannableStringBuilder createSpan() {
+        SpannableStringBuilder spanBuilder = null;
+        if (notEmpty(currentText()) && notEmpty(query)) {
+            String finalQuery = ignoreCase ? query.toLowerCase(Locale.getDefault()) : query;
+            String finalText = ignoreCase ? currentText().toLowerCase(Locale.getDefault()) : currentText();
+
+            int length = finalQuery.length();
+            int startIndex = finalText.indexOf(finalQuery);
             int endIndex = startIndex + length;
 
-            if (startIndex > -1) {
-                SpannableStringBuilder spanBuilder = new SpannableStringBuilder(mText);
-                ForegroundColorSpan color = new ForegroundColorSpan(highlightColor);
+            spanBuilder = new SpannableStringBuilder(currentText());
+            if (startIndex >= 0) {
 
                 // Bold Span
                 if (highlightTextStyle == HIGHLIGHT_BOLD_ITALIC) {
@@ -109,17 +140,35 @@ public class TextViewQuery extends AppCompatTextView {
                 }
 
                 // Color Span
+                ForegroundColorSpan color = new ForegroundColorSpan(highlightColor);
                 spanBuilder.setSpan(
                         color, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 );
 
-                setText(spanBuilder);
+                // Background Color Span
+                if (highlightBackgroundColor != 0) {
+                    BackgroundColorSpan bgColor = new BackgroundColorSpan(highlightBackgroundColor);
+                    spanBuilder.setSpan(
+                            bgColor, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    );
+                }
             }
         }
+        return spanBuilder;
+    }
+
+    private boolean notEmpty(@Nullable String source) {
+        if (source == null)
+            return false;
+        return !source.isEmpty() || !source.isBlank();
     }
 
     public String getQuery() {
         return query;
+    }
+
+    private String currentText() {
+        return text == null ? "" : text.toString();
     }
 
 }

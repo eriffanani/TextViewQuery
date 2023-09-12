@@ -1,4 +1,4 @@
-package com.erif.textviewquery.adapter
+package com.erif.textviewquery.model
 
 data class ModelItemSearch (
     val id: Int,

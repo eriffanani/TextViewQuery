@@ -1,4 +1,4 @@
-package com.erif.textviewquery.adapter
+package com.erif.textviewquery.ui.adapter.serach
 
 class CountryRepo {
 
