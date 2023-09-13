@@ -81,9 +81,9 @@ public class TextViewQuery extends AppCompatTextView {
         if (notEmpty(currentText())) {
             SpannableStringBuilder spanBuilder = createSpan();
             if (spanBuilder != null)
-                setText(spanBuilder, BufferType.NORMAL);
+                setText(spanBuilder, BufferType.SPANNABLE);
             else
-                setText(text);
+                setText(text.toString(), BufferType.NORMAL);
         }
         // When Use View Model, Query Running First
         // When Manual, Query Running Last

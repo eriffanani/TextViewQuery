@@ -13,12 +13,12 @@
         android:theme="@style/Theme.TextViewSearchable"
         tools:targetApi="31">
         <activity
-            android:name=".ui.AnotherExample"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing"/>
-        <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="false" />
+        <activity
+            android:name=".ui.AnotherExample"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -6,10 +6,14 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import com.erif.textviewquery.R
 import com.erif.textviewquery.model.ModelItemMain
+import com.erif.textviewquery.ui.adapter.main.AdapterMain
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
-    val arrName = arrayOf(
+    private val arrName = arrayOf(
         "Darrell C. Bennett", "Edgar C. Taylor", "Steve J. Machin",
         // Women
         "Abigail Purcell", "Angelina Minchin", "Bianca McCloughry",

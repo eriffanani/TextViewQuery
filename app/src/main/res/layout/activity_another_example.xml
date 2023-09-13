@@ -22,9 +22,8 @@
                 android:id="@+id/act_another_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_back"
                 app:menu="@menu/menu_search"
-                app:title="Another Example"/>
+                app:title="Profession Contact"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -25,9 +25,9 @@ import com.erif.textviewquery.model.ModelItemMain
 import com.erif.textviewquery.ui.viewmodel.MainViewModel
 import com.erif.textviewquery.usecases.MainListItemListener
 
-class MainActivity : AppCompatActivity(), MainListItemListener {
+class MainActivity : AppCompatActivity() {
 
-    private val adapterMain = AdapterMain(this)
+    private val adapterMain = AdapterMain()
     private val adapterQuery = AdapterSearch()
     private val countries = CountryRepo.countries()
     private var resultSearch: MutableList<ModelItemSearch> = ArrayList()
@@ -109,11 +109,6 @@ class MainActivity : AppCompatActivity(), MainListItemListener {
                 adapterQuery.setList(resultSearch)
             }
         })
-    }
-
-    override fun onClickItem(item: ModelItemMain) {
-        val intent = Intent(this, AnotherExample::class.java)
-        startActivity(intent)
     }
 
 }
