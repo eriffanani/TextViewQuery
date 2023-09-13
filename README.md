@@ -13,7 +13,7 @@ dependencyResolutionManagement {
 #### build.gradle(app)
 ```kotlin
 dependencies {
-    implementation 'com.github.eriffanani:TextViewQuery:1.0.0'
+    implementation 'com.github.eriffanani:TextViewQuery:1.2.0'
 }
 ```
 
