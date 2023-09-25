@@ -1,20 +1,32 @@
 # TextView Query
 
 ## Installation
-#### settings.gradle
+#### build.gradle (Project: Name)
 ```kotlin
-dependencyResolutionManagement {
+allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
     }
 }
 ```
 
-#### build.gradle(app)
+### When using gradle.kts
+#### settings.gradle.kts
 ```kotlin
-dependencies {
-    implementation 'com.github.eriffanani:TextViewQuery:1.2.0'
-}
+dependencyResolutionManagement {
+    repositories {
+        maven { url = uri("https://jitpack.io") }
+    }
+ }
+```
+
+#### build.gradle(Module: app)
+```kotlin
+implementation 'com.github.eriffanani:TextViewQuery:1.2.0'
+```
+#### build.gradle.kts(Module: app)
+```kotlin
+implementation("com.github.eriffanani:TextViewQuery:1.2.0")
 ```
 
 ### Licence
