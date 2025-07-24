@@ -16,6 +16,8 @@
     app:ignoreCase="true"
     app:highlightUnderline="true"/>
 ```
+
+#### Result
 <img width="323" height="70" alt="Screenshot 2025-07-24 at 15 05 12" src="https://github.com/user-attachments/assets/73aeee5a-8f2d-478b-a8df-caea9028ecb8" />
 
 #### Kotlin
