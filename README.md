@@ -1,4 +1,28 @@
 # TextView Query
+![query1](https://github.com/user-attachments/assets/8dbb8471-d90c-4790-918a-6147df6e7574)
+![query2](https://github.com/user-attachments/assets/cdc24722-10db-4b81-9584-542de6262a01)
+
+## How To Use
+#### XML
+```xml
+<com.erif.library.TextViewQuery
+    android:id="@+id/txt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Indonesia"
+    app:query="dones"
+    app:highlightColor="#03A9F4"
+    app:highlightTextStyle="bold"
+    app:ignoreCase="true"
+    app:highlightUnderline="true"/>
+```
+<img width="323" height="70" alt="Screenshot 2025-07-24 at 15 05 12" src="https://github.com/user-attachments/assets/73aeee5a-8f2d-478b-a8df-caea9028ecb8" />
+
+#### Kotlin
+```kotlin
+val txt: TextViewQuery = findViewById(R.id.txt)
+txt.query = "Text from your search view"
+```
 
 ## Installation
 #### build.gradle (Project: Name)
