@@ -3,12 +3,8 @@ package com.erif.textviewquery.ui.adapter.serach
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.erif.library.TextViewQuery
 import com.erif.textviewquery.BR
-import com.erif.textviewquery.R
 import com.erif.textviewquery.databinding.ItemSearchBinding
 import com.erif.textviewquery.model.ModelItemSearch
 
@@ -29,12 +25,12 @@ class AdapterSearch: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.bind(list[position])
     }
 
-    private class Holder constructor(
-        private val binding: ViewDataBinding
+    private class Holder(
+        private val binding: ItemSearchBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private val parent: RelativeLayout = binding.root.findViewById(R.id.item_parent)
-        private val txtSearch: TextViewQuery = binding.root.findViewById(R.id.item_search_txtSearch)
+        private val parent = binding.itemParent
+        private val txtSearch = binding.itemSearchTxtSearch
 
         fun bind(item: ModelItemSearch) {
             //txtSearch.text = item.value

@@ -1,9 +1,6 @@
 package com.erif.textviewquery.ui
 
-import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -11,23 +8,22 @@ import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.erif.textviewquery.R
+import com.erif.textviewquery.databinding.ActivityMainBinding
+import com.erif.textviewquery.model.ModelItemSearch
+import com.erif.textviewquery.ui.adapter.serach.AdapterCountry
 import com.erif.textviewquery.ui.adapter.serach.AdapterSearch
 import com.erif.textviewquery.ui.adapter.serach.CountryRepo
-import com.erif.textviewquery.model.ModelItemSearch
-import com.erif.textviewquery.ui.adapter.main.AdapterMain
-import com.erif.textviewquery.databinding.ActivityMainBinding
-import com.erif.textviewquery.model.ModelItemMain
 import com.erif.textviewquery.ui.viewmodel.MainViewModel
-import com.erif.textviewquery.usecases.MainListItemListener
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapterMain = AdapterMain()
+    private val adapterCountry = AdapterCountry()
     private val adapterQuery = AdapterSearch()
     private val countries = CountryRepo.countries()
     private var resultSearch: MutableList<ModelItemSearch> = ArrayList()
@@ -38,14 +34,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
 
         // Main RecyclerView
         recyclerView = binding.actMainRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = adapterMain
+            adapter = adapterCountry
         }
-        adapterMain.setList(viewModel.mainData())
+        adapterCountry.setList(CountryRepo.countries().toMutableList())
 
         val cardSearch = binding.actMainCardView
         val icSearch = binding.actMainIcSearch
@@ -90,14 +86,14 @@ class MainActivity : AppCompatActivity() {
                     resultSearch.clear()
                 }
                 btnClear.isVisible = !emptyQuery
-                val emptyColor = Color.parseColor("#B4B4B4")
-                val fillColor = Color.parseColor("#595959")
+                val emptyColor = "#B4B4B4".toColorInt()
+                val fillColor = "#595959".toColorInt()
                 val searchIconColor = if (emptyQuery) fillColor else emptyColor
                 ImageViewCompat.setImageTintList(icSearch, ColorStateList.valueOf(searchIconColor))
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (resultSearch.size > 0) {
+                if (resultSearch.isNotEmpty()) {
                     if (!recyclerViewQuery.isVisible) {
                         recyclerViewQuery.isVisible = true
                         cardSearch.elevation = resources.getDimension(R.dimen.card_elevation)

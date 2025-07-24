@@ -6,10 +6,6 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import com.erif.textviewquery.R
 import com.erif.textviewquery.model.ModelItemMain
-import com.erif.textviewquery.ui.adapter.main.AdapterMain
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 

@@ -7,7 +7,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -23,7 +22,6 @@ import com.erif.textviewquery.model.ModelItemMainFilter
 import com.erif.textviewquery.ui.adapter.main.AdapterMain
 import com.erif.textviewquery.ui.viewmodel.MainViewModel
 import com.erif.textviewquery.usecases.MainListItemListener
-import java.util.Collections
 
 class AnotherExample : AppCompatActivity(), MainListItemListener {
 
@@ -79,6 +77,7 @@ class AnotherExample : AppCompatActivity(), MainListItemListener {
         searchView = menuItem?.actionView as SearchView?
         searchView?.inputType = InputType.TYPE_TEXT_FLAG_CAP_WORDS
         searchView?.setOnQueryTextListener(searchListener)
+        searchView?.queryHint = "Search here..."
         return super.onCreateOptionsMenu(menu)
     }
 
